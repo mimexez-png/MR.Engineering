@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บจ.เอ็มอาร์ เอ็นจิเนียริ่ง | MR ENGINEERING - บริการงานอุตสาหกรรมและซ่อมสร้างครบวงจร</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #1e3a5f; /* น้ำเงินเข้ม */
+            --secondary-color: #ff6b35; /* ส้ม */
+            --accent-color: #00d9ff; /* ฟ้านีออน */
+            --dark-bg: #060913; /* พื้นหลังเข้มมาก */
+            --card-bg: #111827; /* พื้นหลังการ์ด */
+            --text-light: #ffffff;
+            --text-gray: #9ca3af;
+            --border-glow: rgba(0, 217, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth; /* เลื่อนนุ่มนวล */
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 10px;
+        }
+
+        /* Background Glow Effect */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(255, 107, 53, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 217, 255, 0.05) 0%, transparent 40%);
+        }
+
+        /* Container Rules */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s ease;
+            background: rgba(6, 9, 19, 0.6);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        header.scrolled {
+            padding: 12px 0;
+            background: rgba(17, 24, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--secondary-color);
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 150px 0 100px;
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #fff 30%, var(--text-gray) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons Ultimate Style */
+        .btn {
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--secondary-color), #ff4500);
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.2);
+        }
+
+        /* Section Layouts */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+        }
+
+        .section-subtitle {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        /* Services Grid Styling */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, #111827 0%, #0b0f19 100%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 217, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 217, 255, 0.1);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--secondary-color);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--secondary-color);
+            color: white;
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Portfolio Gallery */
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-gray);
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            border-color: var(--accent-color);
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            background: var(--card-bg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px;
+            background: linear-gradient(to top, rgba(6, 9, 19, 0.95) 0%, rgba(6, 9, 19, 0.7) 70%, transparent 100%);
+            transform: translateY(0);
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-info h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .portfolio-info p {
+            color: var(--accent-color);
+            font-size: 14px;
+        }
+
+        /* Contact Section Luxury Interface */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            background: linear-gradient(145deg, #0f1524 0%, #070b14 100%);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .contact-info h3, .contact-form h3 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: 700;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .info-item i {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .info-item .label {
+            display: block;
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        .info-item .value, .info-item a {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-item a:hover {
+            color: var(--secondary-color);
+        }
+
+        .quick-call {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .call-btn {
+            border-radius: 12px;
+            padding: 12px 25px;
+            font-size: 15px;
+        }
+
+        /* Input Elements Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.1);
+        }
+
+        .form-group select option {
+            background: var(--dark-bg);
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        /* Animations Keyframes */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive Design Rules */
+        @media (max-width: 992px) {
+            .contact-content { grid-template-columns: 1fr; padding: 30px; }
+            .hero-content h1 { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                padding: 20px;
+                border-bottom: 1px solid var(--border-glow);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 24px;
+                color: var(--text-light);
+                cursor: pointer;
+            }
+
+            header { padding: 15px 0; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .btn { width: 100%; justify-content: center; }
+        }
+        
+        .menu-toggle {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#home" class="logo">
+                    <i class="fas fa-industry"></i>
+                    <span>MR ENGINEERING</span>
+                </a>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#home" class="active">หน้าแรก</a></li>
+                    <li><a href="#services">ลักษณะงานและบริการ</a></li>
+                    <li><a href="#portfolio">รูปงาน/ผลงาน</a></li>
+                    <li><a href="#contact">ติดต่อเรา</a></li>
+                </ul>
+                <div class="menu-toggle" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content" data-aos="zoom-out" data-aos-duration="1200">
+                <h1>บจ.เอ็มอาร์ เอ็นจิเนียริ่ง <span>บริการงานอุตสาหกรรมครบวงจร</span></h1>
+                <p class="tagline">รับเหมางานวิศวกรรมโรงงานทุกประเภท ซ่อมโมดิฟายเครื่องจักร ระบบไฟฟ้า ระบบไฮดรอลิค และงานโครงสร้างเหล็กครบวงจร โดยทีมงานช่างมืออาชีพประสบการณ์สูง</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary"><i class="fas fa-phone-alt"></i> ติดต่อเราทันที</a>
+                    <a href="#services" class="btn btn-secondary">ตรวจสอบลักษณะงาน <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title"><i class="fas fa-tools"></i> ขอบเขตลักษณะงานบริการ</h2>
+                <p class="section-subtitle">เราเชี่ยวชาญพร้อมให้บริการคุณหน้างานจริง ด้วยทีมช่างมืออาชีพ</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon"><i class="fas fa-wrench"></i></div>
+                    <h3>งานซ่อมและบริการ</h3>
+                    <p>บริการตรวจเช็ค บำรุงรักษาเชิงป้องกัน (PM) แก้ไขปัญหาเครื่องจักรติดขัด หรืออุปกรณ์ชำรุดเสียหายหน้างาน รวดเร็วและแม่นยำ</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>งานสร้าง และ ซ่อมระบบโครงค่าย</h3>
+                    <p>ออกแบบ วางระบบ และซ่อมแซมระบบโครงค่ายอุตสาหกรรม โครงข่ายท่อส่ง โครงสร้างเหล็กโรงงาน และงานสาธารณูปโภคทุกชนิด</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon"><i class="fas fa-sliders-h"></i></div>
+                    <h3>งานปรับปรุงอุปกรณ์ไฟฟ้า</h3>
+                    <p>อัพเกรดระบบควบคุมไฟฟ้า ปรับปรุงวงจร แผงคอนโทรล ตู้ MDB โรงงานเก่าให้ทันสมัย ปลอดภัยตามมาตรฐานวิศวกรรม</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>งานติดตั้งอุปกรณ์ไฟฟ้า</h3>
+                    <p>เดินสายไฟโรงงาน ติดตั้งมอเตอร์ อินเวอร์เตอร์ เซนเซอร์ตรวจจับ และระบบไฟฟ้ากำลังสำหรับเครื่องจักรอุตสาหกรรมทุกขนาด</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>งาน MODIFY เครื่องจักร</h3>
+                    <p>ดัดแปลง แก้ไข เพิ่มเติมกลไกการทำงานของเครื่องจักร เพื่อเพิ่มประสิทธิภาพการผลิต และรองรับโปรดักส์ชิ้นงานรูปแบบใหม่</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h3>งานระบบไฮดรอลิค</h3>
+                    <p>ซ่อมสร้าง ซ่อมบำรุงระบบไฮดรอลิคและนิวเมติกส์ เปลี่ยนซีล ย้ำสาย ซ่อมกระบอกสูบ ปั๊ม และวาล์วควบคุมทุกประเภท</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon"><i class="fas fa-dharmachakra"></i></div>
+                    <h3>งานกลึง / งานกัด</h3>
+                    <p>ขึ้นรูปชิ้นส่วนเครื่องจักร อะไหล่สำรอง ด้วยงานกลึง-งานกัดคุณภาพสูง รองรับงานมิลลิ่ง CNC ชิ้นงานความแม่นยำสูง</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon"><i class="fas fa-fire"></i></div>
+                    <h3>งานเชื่อมทุกชนิด</h3>
+                    <p>บริการงานเชื่อมเหล็ก เชื่อมสแตนเลส เชื่อมอลูมิเนียม ด้วยเทคนิคที่เหมาะสม ทั้งงานเชื่อม TIG, MIG และ ARC</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon"><i class="fas fa-hammer"></i></div>
+                    <h3>งานซ่อมสร้างเครื่องจักรฯ</h3>
+                    <p>รับออกแบบและสร้างเครื่องจักรเฉพาะทาง รวมถึงงาน Overhaul รื้อระบบซ่อมสร้างเครื่องจักรเก่าให้กลับมาทำงานเสมือนใหม่</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>งานปูนและโครงสร้าง</h3>
+                    <p>งานปูนฐานเครื่องจักร เทพื้นโรงงานทนแรงกระแทก งานแท่นคอนกรีตเสริมเหล็ก งานกั้นผนัง และงานซ่อมแซมทั่วไปภายในโรงงาน</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title"><i class="fas fa-images"></i> รูปภาพและผลงานที่ผ่านมา</h2>
+                <p class="section-subtitle">การันตีคุณภาพจากหน้างานจริงของกลุ่มลูกค้าอุตสาหกรรมชั้นนำ</p>
+            </div>
+
+            <div class="portfolio-filter" data-aos="fade-up">
+                <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+                <button class="filter-btn" data-filter="electrical">งานไฟฟ้า</button>
+                <button class="filter-btn" data-filter="machinery">เครื่องจักร/MODIFY</button>
+                <button class="filter-btn" data-filter="welding">งานเชื่อม/โครงสร้าง</button>
+                <button class="filter-btn" data-filter="hydraulic">ไฮดรอลิค/อื่นๆ</button>
+            </div>
+
+            <div class="portfolio-grid" data-aos="fade-up" data-aos-delay="150">
+                <div class="portfolio-item" data-category="electrical">
+                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80" alt="ปรับปรุงระบบไฟฟ้า">
+                    <div class="portfolio-info">
+                        <h4>ติดตั้งและปรับปรุงแผงควบคุมตู้ไฟ</h4>
+                        <p>ประเภท: งานปรับปรุง/ติดตั้งอุปกรณ์ไฟฟ้า</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="machinery">
+                    <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="Modify เครื่องจักร">
+                    <div class="portfolio-info">
+                        <h4>Modify และ Overhaul เครื่องจักรฝ่ายผลิต</h4>
+                        <p>ประเภท: งาน MODIFY เครื่องจักร</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="welding">
+                    <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=600&q=80" alt="งานโครงสร้างเหล็ก">
+                    <div class="portfolio-info">
+                        <h4>ประกอบติดตั้งระบบโครงค่ายท่อและเหล็กถัก</h4>
+                        <p>ประเภท: งานสร้างและระบบโครงค่าย</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="hydraulic">
+                    <img src="https://images.unsplash.com/photo-1534224039826-c7a0dea0e66a?auto=format&fit=crop&w=600&q=80" alt="ระบบไฮดรอลิค">
+                    <div class="portfolio-info">
+                        <h4>ซ่อมเปลี่ยนกระบอกสูบและซีลไฮดรอลิค</h4>
+                        <p>ประเภท: งานระบบไฮดรอลิค</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item" data-category="machinery">
+                    <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&w=600&q=80" alt="งานกลึงงานกัด">
+                    <div class="portfolio-info">
+                        <h4>กลึงอะไหล่เครื่องจักร-กัดเฟืองอุตสาหกรรม</h4>
+                        <p>ประเภท: งานกลึง / งานกัด</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="welding">
+                    <img src="https://images.unsplash.com/photo-1535813547-99c456a41d4a?auto=format&fit=crop&w=600&q=80" alt="งานเชื่อม">
+                    <div class="portfolio-info">
+                        <h4>งานเชื่อมแสตนเลสถังมิกเซอร์อุตสาหกรรม</h4>
+                        <p>ประเภท: งานเชื่อมทุกชนิด</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title"><i class="fas fa-address-book"></i> ติดต่อวิศวกรฝ่ายดูแลหน้างาน</h2>
+                <p class="section-subtitle">ปรึกษาปัญหา ประเมินราคาด่วน ฟรีไม่มีค่าใช้จ่าย บริการทั่วประเทศ</p>
+            </div>
+            
+            <div class="contact-content" data-aos="fade-up" data-aos-delay="200">
+                <div class="contact-info">
+                    <h3>สายด่วนติดต่อเรา</h3>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <span class="label">ฝ่ายช่างเทคนิค / ประเมินราคาหน้างาน:</span>
+                            <a href="tel:0819947715">081-994-7715</a>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <span class="label">ฝ่ายบริการจัดจ้าง / ประสานงานด่วน:</span>
+                            <a href="tel:0898304774">089-830-4774</a>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fab fa-line"></i>
+                        <div>
+                            <span class="label">สอบถามผ่านแอปพลิเคชัน LINE:</span>
+                            <span class="value" style="color: #06C755;">เพิ่มเพื่อนด้วยเบอร์โทรศัพท์ข้างต้น</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <span class="label">พื้นที่พร้อมให้บริการพิเศษ:</span>
+                            <span class="value">กรุงเทพมหานคร ปริมณฑล และเขตนิคมอุตสาหกรรมทั่วประเทศ</span>
+                        </div>
+                    </div>
+
+                    <div class="quick-call">
+                        <a href="tel:0819947715" class="btn btn-primary call-btn">
+                            <i class="fas fa-phone"></i> โทรสายด่วน 1
+                        </a>
+                        <a href="tel:0898304774" class="btn btn-secondary call-btn">
+                            <i class="fas fa-phone"></i> โทรสายด่วน 2
+                        </a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm" onsubmit="event.preventDefault(); alert('ระบบจำลอง: ได้รับข้อมูลการติดต่อเรียบร้อยแล้ว ทีมงานจะโทรกลับโดยด่วนที่สุด');">
+                    <h3>แจ้งลักษณะงานผ่านเว็บ</h3>
+                    
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="ชื่อผู้ติดต่อ หรือ ชื่อโรงงาน / บริษัท" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="tel" id="phone" placeholder="เบอร์โทรศัพท์ติดต่อกลับ" required>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="serviceType" required>
+                            <option value="">เลือกประเภทงานหลักที่ต้องการให้ดูแล</option>
+                            <option value="1">งานซ่อมและบริการเครื่องจักร</option>
+                            <option value="2">งานสร้าง / ซ่อมระบบโครงค่ายโครงสร้าง</option>
+                            <option value="3">งานปรับปรุง / ติดตั้งอุปกรณ์ไฟฟ้า</option>
+                            <option value="4">งาน MODIFY เครื่องจักร</option>
+                            <option value="5">งานระบบไฮดรอลิค</option>
+                            <option value="6">งานกลึง / งานกัด / งานเชื่อม</option>
+                            <option value="7">งานปูนและฐานคอนกรีต</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea id="message" rows="4" placeholder="อธิบายรายละเอียดลักษณะงานเบื้องต้น (ถ้ามี)"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-paper-plane"></i> ส่งข้อมูลให้เจ้าหน้าที่ติดต่อกลับ
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 MR Engineering Co., Ltd. All Rights Reserved. ออกแบบหน้าเว็บด้วย UI ลื่นไหลเป็นพิเศษ</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // เปิดใช้งาน Animation Library
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true
+        });
+
+        // ควบคุมแถบเมนูบาร์ด้านบนและ Active Menu อัตโนมัติ
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            let fromTop = window.scrollY + 100;
+            document.querySelectorAll(".nav-links a").forEach(link => {
+                try {
+                    let section = document.querySelector(link.hash);
+                    if (section && section.offsetTop <= fromTop && section.offsetTop + section.offsetHeight > fromTop) {
+                        link.classList.add("active");
+                    } else {
+                        link.classList.remove("active");
+                    }
+                } catch (e) {}
+            });
+        });
+
+        // ระบบ Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // ปิดเมนูเมื่อคลิกลิงก์ (บนมือถือ)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ระบบตัวกรองรูปภาพ (Portfolio Filter) กดแล้วสลับงานแบบสมูท
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.style.opacity = '1', 50);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => item.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
